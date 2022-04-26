@@ -7,6 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
 public class UserDaoJDBCImpl implements UserDao {
     public UserDaoJDBCImpl() {
 
@@ -55,11 +56,15 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public List<User> getAllUsers() {
         List<User> userList = new ArrayList<>();
-        try (Connection conn = Util.getConnection();
-             Statement statement = conn.createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM users");
+        String order = "select * from  users";
+        try (Statement statement = Util.getConnection().createStatement(); ResultSet resultSet = statement.executeQuery(order)) {
             while (resultSet.next()) {
-                userList.add(new User(resultSet.getString(2), resultSet.getString(3), resultSet.getByte(4)));
+                User user = new User();
+                user.setId(resultSet.getLong("id"));
+                user.setName(resultSet.getString("name"));
+                user.setLastName(resultSet.getString("lastName"));
+                user.setAge(resultSet.getByte("age"));
+                userList.add(user);
             }
         } catch (SQLException e) {
             System.out.println("SQL error occured 5");
@@ -76,3 +81,6 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
 }
+
+
+*/
